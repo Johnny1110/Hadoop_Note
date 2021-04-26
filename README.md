@@ -33,4 +33,6 @@
 
 2. [第二章 MapReduce 遇到的問題 (p22)](basic/firstMapReduce/README.md)
 
-3. [基本檔案系統操作(p51)](basic/fsOperating/README.md)
+3. [基本檔案系統操作 (p51)](basic/fsOperating/README.md)
+
+4. [distcp 平行複製 (p76)](dfs/distcp/README.md)
