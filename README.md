@@ -35,4 +35,8 @@
 
 3. [基本檔案系統操作 (p51)](basic/fsOperating/README.md)
 
+4. [Java API ](api/java/README.md)
+
+5. [一致性 (p74)](coherency/README.md)
+
 4. [distcp 平行複製 (p76)](dfs/distcp/README.md)
