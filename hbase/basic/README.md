@@ -6,10 +6,10 @@
 
 <br>
 
-輸入：
+進入 `/usr/local/hbase-x.y.z/bin` 目錄下輸入：
 
 ```bash
-start-hbase.sh
+sudo ./start-hbase.sh
 ```
 
 <br>
