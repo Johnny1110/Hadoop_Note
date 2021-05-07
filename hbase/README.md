@@ -15,3 +15,5 @@
 2. [入門操作](basic/README.md)
 
 3. [使用 java 管理存取 table](java/accessTable/README.md)
+
+4. [hbase 資料結構介紹](dataStructure/README.md)

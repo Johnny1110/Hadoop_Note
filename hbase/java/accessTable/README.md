@@ -45,6 +45,8 @@
 public static Connection getConnection(){
         try {
             Configuration conf = HBaseConfiguration.create();
+            conf.set("hbase.zookeeper.quorum", "127.0.0.1");
+            conf.set("hbase.zookeeper.property.clientPort", "2181");
             HBaseAdmin.available(conf); // 檢查 conf 是否可用
             return ConnectionFactory.createConnection(conf);
         } catch (IOException e) {
@@ -319,3 +321,18 @@ public static void main(String[] args) throws IOException {
         dropTable(conn, tableName);
     }
 ```
+
+<br>
+<br>
+<br>
+<br>
+
+---
+
+<br>
+
+完整 source code：
+
+<br>
+
+[HbaseExampleClient.java](./HbaseExampleClient.java)
