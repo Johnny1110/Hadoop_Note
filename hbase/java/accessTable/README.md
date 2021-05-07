@@ -224,3 +224,98 @@ public static void main(String[] args) throws IOException {
     }
 ```
 
+<br>
+<br>
+<br>
+<br>
+
+## scan 
+
+<br>
+
+```java
+public static List<Map<String, String>> scan(Connection conn, TableName tableName, String rowKeyStart, String rowKeyEnd) throws IOException {
+        try(Table table = conn.getTable(tableName)){
+            Scan scan = new Scan();
+            if (!StringUtils.isEmpty(rowKeyStart)){
+                scan.withStartRow(Bytes.toBytes(rowKeyStart));
+            }
+            if (!StringUtils.isEmpty(rowKeyEnd)){
+                scan.withStopRow(Bytes.toBytes(rowKeyEnd));
+            }
+            try(ResultScanner rs = table.getScanner(scan)){
+                List<Map<String, String>> dataList = new ArrayList<>();
+
+                for(Result result : rs){
+                    Map<String, String> map = new HashMap<>();
+                    for (Cell cell : result.listCells()){
+                        String key = new String(CellUtil.cloneQualifier(cell));
+                        String value = new String(CellUtil.cloneValue(cell));
+                        map.put(key, value);
+                    }
+                    dataList.add(map);
+                }
+                return dataList;
+            }
+        }
+    }
+```
+
+<br>
+
+測試：
+
+<br>
+
+```java
+public static void main(String[] args) throws IOException {
+        Connection conn = getConnection();
+        TableName tableName = TableName.valueOf("test");
+
+        List<Map<String, String>> mapList = scan(conn, tableName, null, null);
+        mapList.forEach(map -> {
+            map.forEach((k, v) -> {
+                System.out.println("------------------------------------------------");
+                System.out.println("key: " + k);
+                System.out.println("value: " + v);
+                System.out.println("------------------------------------------------");
+            });
+        });
+    }
+```
+
+<br>
+<br>
+<br>
+<br>
+
+## Drop Table
+
+<br>
+
+```java
+public static void dropTable(Connection conn, TableName tableName) throws IOException {
+        try(Admin admin = conn.getAdmin()){
+            if (admin.tableExists(tableName)){
+                admin.disableTable(tableName);
+                admin.deleteTable(tableName);
+                System.out.println("Table: <" + tableName + "> has been droped.");
+            }
+        }
+    }
+```
+
+<br>
+
+測試：
+
+<br>
+
+```java
+public static void main(String[] args) throws IOException {
+        Connection conn = getConnection();
+        TableName tableName = TableName.valueOf("test");
+
+        dropTable(conn, tableName);
+    }
+```
