@@ -24,11 +24,20 @@ Hadoop 的運行可以是以下三種模式的其中一種：
 
 * 完全分散式
 
-    Hadoop 運行於一座 Cluster 之上，至少要有3個 Node 才可以支持此模式。
+    Hadoop 運行於一座 Cluster 之上，至少要有 2 個 Node 才可以支持此模式。
 
 <br>
 
-這邊先介紹如何安裝並運行一個為分散式的 Hadoop。
+這邊介紹如何安裝並運行一個偽分散式的 Hadoop。
 
 點[這裡](https://github.com/Johnny1110/Problem_Solving_Collection/blob/master/HDFS/install/README.md)查看
+
+<br>
+<br>
+<br>
+<br>
+
+關於完全分散式請參考下面這篇筆記。
+
+[Hadoop 分散式安裝](separate_deploy.md)
 
