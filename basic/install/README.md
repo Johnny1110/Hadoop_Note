@@ -39,5 +39,5 @@ Hadoop 的運行可以是以下三種模式的其中一種：
 
 關於完全分散式請參考下面這篇筆記。
 
-[Hadoop 分散式安裝](separate_deploy)
+[Hadoop 分散式安裝](separateDeploy)
 
