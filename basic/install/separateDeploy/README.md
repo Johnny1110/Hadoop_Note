@@ -25,7 +25,7 @@
 
 * [虛擬機安裝](vm_install.md)
 
-* [Hadoop 安裝](hadoop_install.md)
+* [Hadoop 分佈式安裝](hadoop_install.md)
 
 <br>
 <br>
