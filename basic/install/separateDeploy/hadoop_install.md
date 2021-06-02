@@ -44,6 +44,14 @@ sudo apt-get install openjdk-8-jdk
 
 <br>
 
+---
+
+__踩坑提醒!__，在編輯 /etc/hosts 的時候，記得要把 `127.0.0.1 master` 刪掉，不可以同時存在一個 hostname 對應 2 個 IP 的情況。同理，`127.0.0.1 slave` 也要刪除。
+
+-------
+
+<br>
+
 當然，根據自己當前建立的網路環境進行 IP 調整，不一定要跟我寫的一樣。 hostname 請避免使用英數字以外文字，否則會影響 hadoop 的功能。
 
 <br>
@@ -559,4 +567,209 @@ slave
 ```
 
 <br>
+
+以上，我們就完成了 hadoop 分布式的所有設定。
+
 <br>
+<br>
+
+
+## 複製到 slave
+
+<br>
+
+master 與 slave 兩台機器上的 hadoop 設定都是一樣的，所以我們可以把剛剛設定好的 hadoop 整包複製到 slave 上。不果在這之前，我們 slave 上是沒有 JDK 與 環境變數設定的，所以在這之前，請一樣為 slave 機器安裝 jdk 與設定 `.bashrc`，過程就不詳述了，上邊都有。
+
+<br>
+<br>
+
+### SCP
+
+<br>
+
+再說明往下的步驟前要先解釋一下，其實也可以在兩台 VM 上做 2 次同樣的動作，也是可以完成的，但是考慮到如果要部屬更多台的時候還是只做一次然後複製比較方便。
+
+<br>
+<br>
+
+我們這邊會在 master 上使用到 `scp` 指令來複製內容到 slave 上。在複製之前，我們先來打包一下 hadoop 到家目錄下，打包過程會需要一點時間，耐心等待。
+
+<br>
+
+```bash
+tar -zcf ~/hadoop.tar.gz /usr/local/hadoop
+```
+
+<br>
+
+使用 `scp` 複製到 slave。
+
+<br>
+
+```bash
+scp ./hadoop.tar.gz slave:/home/hadoop_admin/hadoop/
+```
+
+<br>
+
+完成後可以去 slave 上檢查一下:
+
+<br>
+
+![18](imgs/18.jpg)
+
+<br>
+
+解壓縮到 /usr/local 底下：
+
+<br>
+
+```bash
+sudo tar -zxf hadoop.tar.gz -C /usr/local/
+```
+
+<br>
+
+以上都沒問題的話，在最後檢查一下 hadoop 的所屬群組及擁有者。
+
+<br>
+
+```bsah
+cd /usr/local
+
+ls -la
+```
+
+<br>
+
+![19](imgs/19.jpg)
+
+<br>
+<br>
+
+以上我們就完成了所有設定，接下來就測試一下啟動並建立文件吧。
+
+<br>
+<br>
+<br>
+<br>
+
+## 啟動測試
+
+<br>
+
+__我們啟動操作一定是要在 master 上執行。__
+
+__我們啟動操作一定是要在 master 上執行。__
+
+__我們啟動操作一定是要在 master 上執行。__
+
+
+<br>
+
+
+如果是第一次啟動的話，記得 format 一下 hdfs：
+
+<br>
+
+```bash
+hdfs namenode -format
+```
+
+<br>
+
+啟動 HDFS
+
+```
+start-all.sh
+```
+
+<br>
+
+啟動成功後，可以使用 jps 檢查一下。
+
+<br>
+
+master：
+
+<br>
+
+![20](imgs/20.jpg)
+
+<br>
+
+slave 機器我們從始至終都沒有去動，但是它一樣會被 master 調用，啟動 DataNode 與 NodeManager。
+
+<br>
+
+slave：
+
+<br>
+
+![21](imgs/21.jpg)
+
+<br>
+
+建立 dir 並用 ls 查看：
+
+<br>
+
+![22](imgs/22.jpg)
+
+<br>
+<br>
+
+以上就是全部內容。如果想要查看 node 資訊可以使用以下指令：
+
+<br>
+
+```bash
+hdfs dfsadmin -report
+```
+
+<br>
+
+```bash
+-------------------------------------------------
+Live datanodes (2):
+
+Name: 10.0.2.4:9866 (master)
+Hostname: master
+Decommission Status : Normal
+Configured Capacity: 22059794432 (20.54 GB)
+DFS Used: 32768 (32 KB)
+Non DFS Used: 9570484224 (8.91 GB)
+DFS Remaining: 11345072128 (10.57 GB)
+DFS Used%: 0.00%
+DFS Remaining%: 51.43%
+Configured Cache Capacity: 0 (0 B)
+Cache Used: 0 (0 B)
+Cache Remaining: 0 (0 B)
+Cache Used%: 100.00%
+Cache Remaining%: 0.00%
+Xceivers: 1
+Last contact: Wed Jun 02 16:59:11 CST 2021
+Last Block Report: Wed Jun 02 16:57:57 CST 2021
+Num of Blocks: 0
+
+
+Name: 10.0.2.5:9866 (slave)
+Hostname: slave
+Decommission Status : Normal
+Configured Capacity: 22059794432 (20.54 GB)
+DFS Used: 24576 (24 KB)
+Non DFS Used: 9884467200 (9.21 GB)
+DFS Remaining: 11031097344 (10.27 GB)
+DFS Used%: 0.00%
+DFS Remaining%: 50.01%
+Configured Cache Capacity: 0 (0 B)
+Cache Used: 0 (0 B)
+Cache Remaining: 0 (0 B)
+Cache Used%: 100.00%
+Cache Remaining%: 0.00%
+Xceivers: 1
+Last contact: Wed Jun 02 16:59:12 CST 2021
+Last Block Report: Wed Jun 02 16:57:51 CST 2021
+Num of Blocks: 0
+
+```
