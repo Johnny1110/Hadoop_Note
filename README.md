@@ -42,3 +42,5 @@
 4. [distcp 平行複製 (p76)](dfs/distcp/README.md)
 
 5. [Hbase相關](hbase/README.md)
+
+6. [Hive 相關](hive/README.md)
