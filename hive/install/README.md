@@ -279,6 +279,21 @@ vim hive-site.xml
 
 <br>
 
+設定 Metastore ConnectionURL：
+
+<br>
+
+
+```xml
+<property>
+    <name>javax.jdo.option.ConnectionURL</name>
+    <value>jdbc:derby:/usr/local/apache-hive-3.1.2-bin/metastore_db;databaseName=metastore_db;create=true</value>
+</property>
+```
+
+<br>
+
+
 除此之外，我們還需要刪掉 hive 3.1.2 版的一個 bug，大約在 3215 行附近有一個 \<description\> 區塊，我們直接刪掉，因為這個敘述區塊有一個非法字元會造成讀取問題。
 
 <br>
@@ -305,19 +320,19 @@ tips: vim 跳行方法就是直接輸入行數然後按住 shift + G。
 ```xml
 <property>
     <name>hive.exec.local.scratchdir</name>
-    <value>$HIVE_HOME/iotmp</value>
+    <value>/usr/local/apache-hive-3.1.2-bin/iotmp</value>
     <description>Local scratch space for Hive jobs</description>
 </property>
 
 <property>
     <name>hive.querylog.location</name>
-    <value>$HIVE_HOME/iotmp</value>
+    <value>/usr/local/apache-hive-3.1.2-bin/iotmp</value>
     <description>Location of Hive run time structured log file</description>
  </property>
 
  <property>
     <name>hive.downloaded.resources.dir</name>
-    <value>$HIVE_HOME/iotmp</value>
+    <value>/usr/local/apache-hive-3.1.2-bin/iotmp</value>
     <description>Temporary local directory for added resources in the remote file system.</description>
  </property>
 ```
@@ -375,6 +390,35 @@ hive
 
 <br>
 
+
+試著執行一下 `SHOW TABLES;` 指令，只有回傳 OK，才算成功。
+
+<br>
+
+![13](imgs/13.jpg)
+
 成功!
+
+<br>
+<br>
+<br>
+<br>
+
+---
+
+<br>
+
+Hive 使用 Derby 做 metastore 有一個問題，每一次重啟之後，metastore 都會丟失，所以 Derby 只能當作臨時實驗測試使用，每次重啟 PC 之後，需要手動刪掉 `$HIVE_HOME/metastore_db` 文件，然後執行 `schematool -dbType derby -initSchema`。
+
+或者也可以用另一種方法: 刪除 /usr/local/hive/metastore_db/dbex.lck 文件
+
+<br>
+
+參考文章 : https://www.cnblogs.com/lfri/p/13099126.html
+
+<br>
+
+---
+
 
 
