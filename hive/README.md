@@ -12,3 +12,5 @@
 <br>
 
 * [Hive 安裝](install)
+
+* [Hive 基礎操作](basic)
