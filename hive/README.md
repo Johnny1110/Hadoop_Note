@@ -20,3 +20,5 @@
 * [Hive 分割區](partition)
 
 * [Java UDF](JavaUDF)
+
+* [Java UDAF(彙總函數)](JavaUDAF)
