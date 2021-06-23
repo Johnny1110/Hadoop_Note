@@ -18,3 +18,5 @@
 * [Hive 管理內外部資料表](internalAndExternalTable)
 
 * [Hive 分割區](partition)
+
+* [Java UDF](JavaUDF)
