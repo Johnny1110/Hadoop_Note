@@ -43,7 +43,7 @@ touch Dockerfile
 
 <br>
 
-openjdk 跟 hadoop 都可以從網路上找到下載方式，應該都會是 tar.gz 檔。我們把上述提到的 3 樣東西先放入 hadoop 目錄中，.bashrc 檔案點 [這裡](.bashrc) 獲取。
+openjdk 跟 hadoop 都可以從網路上找到下載方式，應該都會是 tar.gz 檔。我們把上述提到的 3 樣東西先放入 hadoop 目錄中，.bashrc 檔案點 [這裡](bashrc) 獲取。
 
 <br>
 
