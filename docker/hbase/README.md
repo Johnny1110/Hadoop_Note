@@ -39,7 +39,7 @@ touch Dockerfile
 tar -xvf hbase-2.3.5-bin.tar.gz
 ```
 
-除此之外，由於我們從 hadoop 基底上新增了 hbase，所以 .bashrc 也要增加 hbase 相關環境變數。新的 .bashrc 文件點 [這裡](.bashrc) 。
+除此之外，由於我們從 hadoop 基底上新增了 hbase，所以 .bashrc 也要增加 hbase 相關環境變數。新的 .bashrc 文件點 [這裡](bashrc) 。
 
 <br>
 
