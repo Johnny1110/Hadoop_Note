@@ -20,7 +20,7 @@ Download Location: https://downloads.cloudera.com/demo_vm/docker/cloudera-quicks
 
 <br>
 
-以上都是 vmquickstart 版本，OS 是 centos-6.7 目前官方已經停止維護，所以 VM 啟動齁需要手動設定 yum 鏡像站。
+以上都是 vmquickstart 版本，OS 是 centos-6.7 目前官方已經停止維護，所以 VM 啟動齁需要手動設定 yum 鏡像站。__另外，cloudera manager 啟動需要 8G 記憶體與雙核心處裡器，設定 VM 的時候要注意一下資源分配。__
 
 <br>
 
@@ -94,14 +94,14 @@ Download Location: https://downloads.cloudera.com/demo_vm/docker/cloudera-quicks
 
 * 清除快許
 
-```bash
-yum clean all
-```
+    ```bash
+    yum clean all
+    ```
 
 <br>
 
 * 更新 yum
 
-```bash
-yum update
-```
+    ```bash
+    yum update
+    ```
