@@ -813,6 +813,16 @@ kadmin.local -q "ktadd -k /home/cloudera/hdfs.keytab hdfs@EXAMPLE.COM"
 
 <br>
 
+__注意: 當一個帳號生成 keytab 之後，他的密碼就失效了，無法使用 kinit 密碼登入，需改用 keytab 登入：__
+
+<br>
+
+```
+kinit username@EXAMPLE.COM -k -t <<your.keytab>>
+```
+
+<br>
+
 在 java 中測試：
 
 <br>
@@ -826,7 +836,8 @@ public static void main(String[] args) throws Exception {
 
     // hdfs.keytab 儲存在 D:\lib\ 下
     String keytab = "D:\\lib\\hdfs.keytab";
-    String serverprincipal = "hdfs@EXAMPLE.COM";
+    // hdfs/quickstart.cloudera@EXAMPLE.COM 應該是 cloudera-manager 的 kerberos 管理功能預設的一組帳號。
+    String serverprincipal = "hdfs/quickstart.cloudera@EXAMPLE.COM";
     String userprincipal = "hdfs@EXAMPLE.COM";
 
     config.set("hadoop.security.authentication", "kerberos");
@@ -875,4 +886,42 @@ public static boolean testHDFS(String hdfsurl) throws IOException, URISyntaxExce
 
 ![33](imgs/33.jpg)
 
+
+<br>
+<br>
+<br>
+<br>
+
+---
+
+<br>
+
+tips:
+
+修改 principal 密碼：
+
+<br>
+
+```
+kadmin
+
+cpw principal_name
+```
+
+<br>
+<br>
+
+移除 principal：
+
+<br>
+
+```
+kadmin
+
+delete_principal principal_name
+```
+
+<br>
+
+---
 
