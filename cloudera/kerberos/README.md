@@ -804,7 +804,7 @@ principal + keytab 就類似於 ssh 免密碼登入。只需要保存好 keytab 
 <br>
 
 ```
-kadmin.local -q "ktadd -k /home/cloudera hdfs@EXAMPLE.COM"
+kadmin.local -q "ktadd -k /home/cloudera/hdfs.keytab hdfs@EXAMPLE.COM"
 ```
 
 <br>
