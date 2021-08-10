@@ -836,8 +836,8 @@ public static void main(String[] args) throws Exception {
 
     // hdfs.keytab 儲存在 D:\lib\ 下
     String keytab = "D:\\lib\\hdfs.keytab";
-    // hdfs/quickstart.cloudera@EXAMPLE.COM 應該是 cloudera-manager 的 kerberos 管理功能預設的一組帳號。
-    String serverprincipal = "hdfs/quickstart.cloudera@EXAMPLE.COM";
+    // 這裡的 serverprincipal 在帳號後面要加 "/_HOST"，或者加上 domain name 也可以，如 "quickstart.cloudera"。
+    String serverprincipal = "hdfs/_HOST@EXAMPLE.COM";
     String userprincipal = "hdfs@EXAMPLE.COM";
 
     config.set("hadoop.security.authentication", "kerberos");
